@@ -1,7 +1,7 @@
 This is my collection of scripts that I have/will/might create during my usage of Unity.
 Feel free to edit and use.
 
-**WARNING: Some of these scripts might not be optimized**
+**WARNING: Some of these scripts might not be optimized or functioning as intended**
 
 Planned additions/edits:
 - Player Controller - WIP
