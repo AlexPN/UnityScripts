@@ -23,6 +23,8 @@ public var AntiRoll: float;
 public var MaxSpeed: float;
 public var VehicleCOM: Vector3;			//Center of mass, set origin lower for more stability
 
+private var wheelangle: float;
+
 function Start () {
 	this.rigidbody.centerOfMass = VehicleCOM;
 }
@@ -40,7 +42,6 @@ function FixedUpdate () {
 	//Inputs//
 	var torque: float;
 	var brake: float;
-	var wheelangle: float;
 	torque = -Input.GetAxis("Vertical") * TorquePower * Time.deltaTime;
 	wheelangle = Input.GetAxis("Horizontal") * MaxWheelAngle;
 	if (Input.GetKey("space")) {
@@ -145,6 +146,10 @@ function FixedUpdate () {
 }
 
 function Update() {
-	//TODO: Mesh transform//
+	//Mesh transform//
+	FRMesh.transform.localRotation.eulerAngles.y = wheelangle;
+	FLMesh.transform.localRotation.eulerAngles.y = wheelangle;
+	//RRMesh.transform.localRotation.eulerAngles.y = -wheelangle;
+	//RLMesh.transform.localRotation.eulerAngles.y = -wheelangle;
 	//----//
 }
