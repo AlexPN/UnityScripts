@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour {
 	private bool InventoryOpen = false;
 
 	void Start () {
-		AddRemoveItem(test,1.0f);
+		
 	}
 
 	void Update () {
