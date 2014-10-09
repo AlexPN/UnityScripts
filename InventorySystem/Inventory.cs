@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
 
-	public Dictionary<GameObject,float> InvDictionary = new Dictionary<GameObject,float>();
-	public GameObject test;
+	public SortedDictionary<GameObject,float> InvDictionary = new SortedDictionary<GameObject,float>();
 
 	private bool InventoryOpen = false;
 
@@ -14,7 +13,12 @@ public class Inventory : MonoBehaviour {
 	}
 
 	void Update () {
-	
+		if (Input.GetButtonDown("Inventory") && InventoryOpen) {
+			InventoryOpen = false;
+		}
+		else if (Input.GetButtonDown("Inventory") && !InventoryOpen) {
+			InventoryOpen = true;
+		}
 	}
 
 	public void AddRemoveItem(GameObject ObjKey, float ObjAmount) {
@@ -22,6 +26,7 @@ public class Inventory : MonoBehaviour {
 	}
 
 	void OnGUI() {
+		if (InventoryOpen) {
 		GUILayout.BeginArea(new Rect(Screen.width/10,
 		                             Screen.height/10,
 		                             (Screen.width/10)*3,
@@ -38,5 +43,6 @@ public class Inventory : MonoBehaviour {
 			}
 		}
 		GUILayout.EndArea();
+		}
 	}
 }
