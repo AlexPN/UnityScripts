@@ -40,6 +40,7 @@ public class Inventory : MonoBehaviour {
 			if (InvDictionary.Count > 0) {
 				if (SortType == 0) {
 					//Items ordered by name
+					string[] test = new string[InvDictionary.Count];
 					foreach (KeyValuePair<GameObject,int> item in InvDictionary.OrderBy(key => key.Key)) {
 						/*
 						item_base ObjItem = this.gameObject.AddComponent("item_base");
