@@ -7,9 +7,12 @@ public class Inventory : MonoBehaviour {
 
 	public SortedDictionary<GameObject,int> InvDictionary = new SortedDictionary<GameObject,int>();
 
+	public GameObject TestObject;
+
 	private bool InventoryOpen = false;
 	private int SortType = 0;
 	private string[] SortTypeList = new string[] {"Name","Quantity"};
+	private string SortedType = "null";
 
 	public int SelectedItem;
 
@@ -40,33 +43,22 @@ public class Inventory : MonoBehaviour {
 			GUI.Label(new Rect(32,32,64,24), "Sort by:");
 			SortType = GUI.Toolbar(new Rect(96,32,128,24), SortType,SortTypeList);
 			if (InvDictionary.Count > 0) {
-				GameObject[] objs = new GameObject[] { };
-				if (SortType == 0) {
+				GameObject[] objs = new GameObject[InvDictionary.Count];
+				if (SortType == 0 && SortedType != "key") {
 					//Items ordered by name
 					InvDictionary.OrderBy(key => key.Key);
-					//foreach (KeyValuePair<GameObject,int> item in InvDictionary.OrderBy(key => key.Key)) {
-						/*
-						item_base ObjItem = this.gameObject.AddComponent("item_base");
-						ObjItem = item.Key.GetComponent("item_base") as item_base;
-						Texture2D DispTex = ObjItem.InvTexture;
-						GUILayout.Button(DispTex);
-						*/
-					//}
+					SortedType = "key";
+					Debug.Log("Sorting by name");
 				}
-				else {
+				else if (SortType == 1 && SortedType != "value") {
 					//Items ordered by quantity
 					InvDictionary.OrderBy(key => key.Value);
-					//foreach (KeyValuePair<GameObject,int> item in InvDictionary.OrderBy(key => key.Value)) {
-						/*
-						item_base ObjItem = this.gameObject.AddComponent("item_base");
-						ObjItem = item.Key.GetComponent("item_base") as item_base;
-						Texture2D DispTex = ObjItem.InvTexture;
-						GUILayout.Button(DispTex);
-						*/
-					//}
+					SortedType = "value";
+					Debug.Log("Sorting by value");
 				}
 				InvDictionary.Keys.CopyTo(objs,0);
-				//SelectedItem = GUI.SelectionGrid(new Rect(),SelectedItem,objs.ToString(),5);
+				string[] ObjsString = objs.OfType<GameObject>().Select(o => o.ToString()).ToArray();
+				SelectedItem = GUI.SelectionGrid(new Rect(16,64,360,64),SelectedItem,ObjsString,5);
 			}
 			GUI.EndGroup();
 		}
